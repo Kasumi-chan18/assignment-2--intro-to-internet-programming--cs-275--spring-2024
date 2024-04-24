@@ -10,7 +10,6 @@ const browserSync = require(`browser-sync`).create();
 const del = require(`del`);
 const rename = require(`gulp-rename`);
 
-
 // Development tasks
 gulp.task(`lint-js`, () => {
     return gulp.src([`js/*.js`, `node_modules/**`])

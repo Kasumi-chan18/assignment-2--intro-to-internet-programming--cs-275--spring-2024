@@ -1,5 +1,5 @@
 {
-  "name": "prod",
+  "name": "assignment-2--intro-to-internet-programming--cs-275--spring-2024",
   "version": "1.0.0",
   "description": "This program is being used to create a single web page consisting of HTML, CSS and JavaScript that creates a carousel of images whose data are sourced via JSONP from a local file system, much like how a full-stack app might read data from a database.",
   "main": "gulpfile.js",
@@ -9,15 +9,16 @@
   "author": "Moyosoreoluwa Akinsulere",
   "license": "ISC",
   "devDependencies": {
-    "@babel/core": "^7.24.3",
-    "@babel/preset-env": "^7.24.3",
-    "del": "^7.1.0",
+    "@babel/core": "^7.24.4",
+    "@babel/preset-env": "^7.24.4",
+    "browser-sync": "^2.26.14",
+    "del": "^6.0.0",
     "gulp": "^4.0.2",
     "gulp-babel": "^8.0.0",
     "gulp-clean-css": "^4.3.0",
     "gulp-eslint": "^6.0.0",
     "gulp-htmlmin": "^5.0.1",
-    "gulp-imagemin": "^9.0.0",
+    "gulp-imagemin": "^7.1.0",
     "gulp-rename": "^2.0.0",
     "gulp-stylelint": "^13.0.0",
     "gulp-uglify": "^3.0.2"
