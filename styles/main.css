@@ -15,44 +15,44 @@ body {
 header {
   text-align: center;
   padding: 20px 0;
-  background-color: #333;
-  color: #fff;
+  background-color: skyblue;
+  color: white;
 }
 
 h1 {
   font-size: 32px;
   line-height: 38px;
-  margin-bottom: 20px;
 }
 
 .carousel {
-  max-width: 680px;
+  max-width: 680px; /*640px width + 20px left padding + 20px right padding */
   margin: 0 auto;
   overflow: hidden;
 }
 
 .carousel-navigation {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
+  position: relative;
 }
 
 .carousel-navigation a {
-  text-decoration: none;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.carousel-navigation a:first-child {
+  left: 0;
+}
+
+.carousel-navigation a:last-child {
+  right: 0;
 }
 
 .carousel-slides {
   display: flex;
-  transition: transform .5s ease;
 }
 
-.carousel-slide {
-  flex: 0 0 640px;
+.carousel-slides img {
+  width: 640px;
   padding: 0 20px;
-}
-
-.carousel-slide img {
-  width: 100%;
-  height: auto;
 }

@@ -1,4 +1,4 @@
-callback([
+[
   {
     "artist": "Dawn of Midi",
     "album": "Dysnomia",
@@ -71,4 +71,4 @@ callback([
       "url": "https://jazztimes.com/archives/gotan-project-lunatico/"
     }
   }
-]);
+]

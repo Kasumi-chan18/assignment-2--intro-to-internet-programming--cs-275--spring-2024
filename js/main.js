@@ -1,55 +1,116 @@
-document.addEventListener(`DOMContentLoaded`, () => {
-    const carousel = document.querySelector(`.carousel-slides`);
-    const leftArrow = document.querySelector(`.carousel-navigation a:first-child`);
-    const rightArrow = document.querySelector(`.carousel-navigation a:last-child`);
-    const slideWidth = 640; // Width of each slide including padding
+/* eslint-disable max-len */
+/* eslint-disable no-irregular-whitespace */
+const carouselSlides = document.querySelector(`.carousel-slides`);
+const leftArrow = document.querySelector(`.carousel-navigation a:first-child`);
+const rightArrow = document.querySelector(`.carousel-navigation a:last-child`);
 
-    let currentPosition = 0;
+let currentIndex = 0;
+const data = getData();
 
-    // Fetch data from data.json
-    fetch(`json/data.json`)
-        .then(response => response.json())
-        .then(data => {
-            data.forEach(item => {
-                const slide = document.createElement(`div`);
-                slide.classList.add(`carousel-slide`);
-                slide.innerHTML = `
-                    <img src="${item.cover_image.path}" alt="${item.cover_image.alt_content}">
-                    <h2>${item.artist}</h2>
-                    <h3>${item.album}</h3>
-                    <p>${item.review.content}</p>
-                    <a href="${item.review.url}" target="_blank">Read more</a>
-                `;
-                carousel.appendChild(slide);
-            });
-        })
-        .catch(error => console.error(`Error fetching data:`, error));
+function getData() {
+    return [
+        {
+            "artist": `Dawn of Midi`,
+            "album": `Dysnomia`,
+            "cover_image": {
+                "path": `img/12392240423_1ebe6a740d_z.jpg`,
+                "width": 640,
+                "height": 427,
+                "alt_content": `[Dawn of Midi on stage]`,
+                "credit": `snackfight`,
+                "url": `https://www.flickr.com/photos/snackfight/12392240423/sizes/z/`
+            },
+            "url": `http://dawnofmidi.com/`,
+            "review": {
+                "content": `The three guys in Brooklyn’s Dawn of Midi play a grand piano, an upright contrabass, and a drum kit — the same instrumentation used in traditional jazz piano trios. But it’s tricky to say where Dawn of Midi's new album Dysnomia fits within the jazz pantheon, if it even fits in there at all. Unlike their minimalist free jazz debut First, Dawn of Midi meticulously scripted and scored Dysnomia. For 46 continuous minutes, the trio inverts free jazz into bound jazz, torturing their instruments by playing as few notes as humanly possible. They write barely-there melodies that chase their own tails. They establish mercurial rhythms that are confusingly simple — three humans dovetailing instrumental loops into thousands of subtly different permutations. It sounds close to an acoustic Beak> session playing a Steve Reich composition, though even closer to something totally unprecedented.`,
+                "source": `Pitchfork`,
+                "url": `https://pitchfork.com/reviews/albums/18308-dawn-of-midi-dysnomia/`
+            }
+        },
+        {
+            "artist": `Holly Herndon`,
+            "album": `PROTO`,
+            "cover_image": {
+                "path": `img/10835562453_30f4918d69_z.jpg`,
+                "width": 640,
+                "height": 427,
+                "alt_content": `[Holly Herndon on stage]`,
+                "credit": `Passetti`,
+                "url": `https://www.flickr.com/photos/passetti/10835562453/sizes/z/`
+            },
+            "url": `https://www.hollyherndon.com/`,
+            "review": {
+                "content": `California-based electronic composer Holly Herndon considers this moment of slowly emergent machine learning on her third album. Alongside the musicians in her ensemble is Spawn, an AI she created with husband Mat Dryhurst and developer Jules LaPlace, that listened to what the group was composing and mimicked it to create music of its own. It’s not always clear which bits are Spawn-created, but Herndon obviously has the final say over how its contributions are used – and indeed, the whole album feels more like an announcement of human authority rather than a capitulation to machines.`,
+                "source": `The Guardian`,
+                "url": `https://www.theguardian.com/music/2019/may/10/holly-herndon-proto-review-4ad`
+            }
+        },
+        {
+            "artist": `Wu-Tang Clan`,
+            "album": `Enter the Wu-Tang (36 Chambers)`,
+            "cover_image": {
+                "path": `img/15022059070_3a7dde293e_z.jpg`,
+                "width": 640,
+                "height": 480,
+                "alt_content": `[Wu-Tang Clan on stage]`,
+                "credit": `rwoan`,
+                "url": `https://www.flickr.com/photos/rwoan/15022059070/sizes/z/`
+            },
+            "url": `https://wutangclan.com/`,
+            "review": {
+                "content": `The importance tied to the Wu-Tang Clan‘s debut album, Enter the Wu-Tang (36 Chambers), cannot be overstated. At a time when hip-hop was shapeshifting from the signature street sounds of New York City to a cool suave flow of West Coast gangsta rap, there entered the Wu-Tang Clan. Nine cats from Staten Island on a mission to recoup what had always belonged to the East Coast. Naturally, the outcome was critical.`,
+                "source": `Loudsound Magazine`,
+                "url": `https://loudsoundmagazine.com/2018/11/20/album-review-wu-tang-clan-enter-the-wu-tang-clan-36-chambers/`
+            }
+        },
+        {
+            "artist": `Gotan Project`,
+            "album": `Lunático`,
+            "cover_image": {
+                "path": `img/60260329_b2194b7366_z.jpg`,
+                "width": 640,
+                "height": 480,
+                "alt_content": `[Gotan Project on stage]`,
+                "credit": `mabahamo`,
+                "url": `https://www.flickr.com/photos/mabahamo/60260329/sizes/z/`
+            },
+            "url": `https://www.gotanproject.com/`,
+            "review": {
+                "content": `Don’t bother starting a band that fuses Argentine tango with a whiff of French intrigue and heavy electronica beats. Gotan Project — “gotan” is the word “tango” rearranged — has done it already and done it well, as its debut CD from 2001, La Revancha del Tango, has moved more than a million units worldwide. That CD was a sublime example of groove-based instrumental music with occasional, earthy Spanish-language vocals. Its uniqueness stood out in a world suddenly awash in hip Euro chill.`,
+                "source": `Jazz Times`,
+                "url": `https://jazztimes.com/archives/gotan-project-lunatico/`
+            }
+        }
+    ];
+}
 
-    leftArrow.addEventListener(`click`, () => {
-        currentPosition = Math.max(currentPosition - slideWidth, 0);
-        carousel.style.transform = `translateX(-${currentPosition}px)`;
-    });
+function createSlide(data) {
+    const slide = document.createElement(`div`);
+    slide.classList.add(`slide`);
+    slide.innerHTML = `
+    <img src="${data.cover_image.path}" alt="${data.cover_image.alt_content}">
+    <h2>${data.artist}</h2>
+    <h3>${data.album}</h3>
+    <p>${data.review.content}</p>
+    <a href="${data.url}" target="_blank">Read Review</a>
+  `;
+    return slide;
+}
 
-    rightArrow.addEventListener(`click`, () => {
-        currentPosition = Math.min(currentPosition + slideWidth, (carousel.children.length - 1) * slideWidth);
-        carousel.style.transform = `translateX(-${currentPosition}px)`;
-    });
+function showSlide(index) {
+    carouselSlides.innerHTML = ``;
+    const slide = createSlide(data[index]);
+    carouselSlides.appendChild(slide);
+}
+
+leftArrow.addEventListener(`click`, () => {
+    currentIndex = (currentIndex - 1 + data.length) % data.length;
+    showSlide(currentIndex);
 });
 
+rightArrow.addEventListener(`click`, () => {
+    currentIndex = (currentIndex + 1) % data.length;
+    showSlide(currentIndex);
+});
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+showSlide(currentIndex);
