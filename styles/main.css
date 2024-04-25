@@ -10,17 +10,19 @@ body {
   font-family: 'Open Sans', sans-serif;
   font-size: 16px;
   line-height: 1.4;
+  overflow: hidden;
 }
 
 header {
   text-align: center;
   padding: 20px 0;
-  background-color: skyblue;
-  color: white;
+  background-color: white;
+  color: black;
 }
 
 h1 {
   font-size: 32px;
+  font-weight: bold;
   line-height: 38px;
 }
 
@@ -37,7 +39,8 @@ h1 {
 .carousel-navigation a {
   position: absolute;
   top: 50%;
-  transform: translateY(-50%);
+  transform: translateY(300%);
+  display: 0 10px;
 }
 
 .carousel-navigation a:first-child {
@@ -50,9 +53,17 @@ h1 {
 
 .carousel-slides {
   display: flex;
+  transition: transform .5s ease;
 }
 
 .carousel-slides img {
   width: 640px;
   padding: 0 20px;
+  height: auto;
+}
+
+@media screen and (max-width: 768px) {
+  .carousel-slide {
+    flex: 0 0 calc(100% - 40px); /* Adjust width for smaller screens */
+  }
 }
